@@ -145,3 +145,71 @@ img {
   outline: none;
   background-color: rgb(148, 70, 70);
 }
+.mainTitle-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.mainTitle-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 5000ms linear;
+}
+.mainTitle-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.mainTitle-exit-active {
+  transform: translateX(-100%);
+  transition: opacity 5000ms linear;
+}
+/* ============title======= */
+.mainTitle-slideIn-appear {
+  transform: translateX(-100%);
+}
+.mainTitle-slideIn-appear-active {
+  transform: translateX(0);
+  transition: transform 500ms linear;
+}
+/* .mainTitle-slideIn-exit {
+  transform: translateX(0);
+}
+.mainTitle-slideIn-exitDone {
+  transform: translateX(-100%);
+} */
+.taskList-fade-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.taskList-fade-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms linear;
+}
+.taskList-fade-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.taskList-fade-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 250ms linear;
+}
+/* =================find======= */
+.findContact-enter {
+  opacity: 0;
+  transform: scale(0.1);
+}
+.findContact-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 250ms linear;
+}
+.findContact-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.findContact-exit-active {
+  opacity: 0;
+  transform: scale(0.1);
+  transition: all 250ms linear;
+}

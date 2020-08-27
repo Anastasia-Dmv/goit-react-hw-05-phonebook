@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+
 import MainTitle from '../mainTitle/MainTitle';
 import ContactForm from '../contactForm/ContactForm';
 import FindContactInput from '../findContactInput/FindContactInput';
 import ContactsList from '../contactsList/ContactsList';
+import { CSSTransition } from 'react-transition-group';
 
 export default class App extends Component {
   state = {
@@ -14,6 +16,7 @@ export default class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    showContacts: false,
   };
 
   addContact = (name, number) => {
@@ -26,6 +29,7 @@ export default class App extends Component {
     this.setState(prevState => {
       return {
         contacts: [...prevState.contacts, contact],
+        showContacts: true,
       };
     });
   };
@@ -52,15 +56,37 @@ export default class App extends Component {
     const filteredContacts = this.getFilteredContacts();
     return (
       <div>
-        <MainTitle />
+        <CSSTransition
+          in={true}
+          appear={true}
+          classNames="mainTitle-slideIn"
+          timeout={5000}
+          unmountOnExit
+        >
+          <MainTitle />
+        </CSSTransition>
+
         <ContactForm addContact={this.addContact} contacts={filteredContacts} />
-        <FindContactInput value={filter} onChangeFilter={this.changeFilter} />
+
+        <CSSTransition
+          in={this.state.contacts.length > 1}
+          timeout={250}
+          classNames="findContact"
+          unmountOnExit
+        >
+          {/* {filteredContacts.length > 1 && ( */}
+          <FindContactInput value={filter} onChangeFilter={this.changeFilter} />
+          {/* )} */}
+        </CSSTransition>
+
+        {/* <CSSTransition in={showContacts} inmountOnExit> */}
         {filteredContacts.length > 0 && (
           <ContactsList
             deleteContact={this.handleDelete}
             contacts={filteredContacts}
           />
         )}
+        {/* </CSSTransition> */}
       </div>
     );
   }

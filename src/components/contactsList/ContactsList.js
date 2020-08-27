@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import ContactsListItems from '../contactListItems/ContactsListItems';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export default class ContactsList extends Component {
   render() {
     const { contacts, deleteContact } = this.props;
     return (
       <>
-        <ul className="contacts-list">
+        <TransitionGroup component="ul" className="contacts-list">
           {contacts.map((contact, id) => (
-            <ContactsListItems
+            <CSSTransition
               key={id}
-              contact={contact}
-              deleteContact={deleteContact}
-            />
+              classNames="taskList-fade"
+              timeout={250}
+              inmountOnExit
+            >
+              <ContactsListItems
+                contact={contact}
+                deleteContact={deleteContact}
+              />
+            </CSSTransition>
           ))}
-        </ul>
+        </TransitionGroup>
       </>
     );
   }
