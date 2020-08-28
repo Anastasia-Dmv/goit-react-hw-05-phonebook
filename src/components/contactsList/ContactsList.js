@@ -6,14 +6,14 @@ export default class ContactsList extends Component {
   render() {
     const { contacts, deleteContact } = this.props;
     return (
-      <>
+      <div>
         <TransitionGroup component="ul" className="contacts-list">
           {contacts.map((contact, id) => (
             <CSSTransition
               key={id}
               classNames="taskList-fade"
               timeout={250}
-              inmountOnExit
+              unmountOnExit
             >
               <ContactsListItems
                 contact={contact}
@@ -22,7 +22,7 @@ export default class ContactsList extends Component {
             </CSSTransition>
           ))}
         </TransitionGroup>
-      </>
+      </div>
     );
   }
 }

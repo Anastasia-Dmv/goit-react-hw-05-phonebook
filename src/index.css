@@ -199,6 +199,11 @@ img {
   transform: translateX(-100%);
   transition: all 250ms linear;
 }
+.taskList-fade-exit-done {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 250ms linear;
+}
 /* =================find======= */
 .findContact-enter {
   opacity: 0;
