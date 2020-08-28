@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 export default class ContactForm extends Component {
-  state = {
+  formInitialState = {
     name: '',
     number: '',
+  };
+  state = {
+    ...this.formInitialState,
+    alertMessageShow: false,
   };
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -17,19 +22,32 @@ export default class ContactForm extends Component {
     const { contacts } = this.props;
     const existedContact = contacts.find(contact => contact.name === name);
     if (existedContact) {
-      alert(`${name} is already in contacts`);
-      return;
+      this.setState({ alertMessageShow: true });
+      // alert(`${name} is already in contacts`);
+      return this.setState({ ...this.formInitialState });
     }
 
     this.props.addContact(this.state.name, this.state.number);
     this.setState({ name: '', number: '' });
   };
-
+  toggleAlert = () => {
+    this.setState({ alertMessageShow: false });
+  };
   render() {
-    const { name, number } = this.state;
+    const { name, number, alertMessageShow } = this.state;
 
     return (
-      <section>
+      <section className="wrapper">
+        <CSSTransition
+          in={alertMessageShow}
+          timeout={250}
+          classNames="alertFade"
+          unmountOnExit
+        >
+          <button className="alertMessage" onClick={this.toggleAlert}>
+            <p>Contact already exists</p>
+          </button>
+        </CSSTransition>
         <form onSubmit={this.handleSubmit} className="form">
           <label>
             Name
